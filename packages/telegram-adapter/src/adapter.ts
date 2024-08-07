@@ -124,6 +124,10 @@ export class TelegramAdapter
   ): Promise<RenderedElement[]> {
     this.bot.processUpdate(container.data);
 
+    if (container.children.length === 0) {
+      return [];
+    }
+
     if (container.data.callback_query) {
       return [];
     }
@@ -151,7 +155,7 @@ export class TelegramAdapter
       };
     }
 
-    if (isUpdate) {
+    if (isUpdate && container.messageId) {
       await this.bot.editMessageText(textContent, {
         reply_markup: options.reply_markup as any,
         chat_id: chatRoomId,

@@ -6,10 +6,12 @@ import {
   Renderer as RendererInterface,
   ReactInstanceType,
   AdapterInterface,
+  Logger,
 } from "@rx-lab/common";
 import React from "react";
 import { BaseComponent, Text } from "./components";
 import { ComponentBuilder } from "./builder/componentBuilder";
+import ReactReconciler from "react-reconciler";
 
 interface RendererOptions {
   adapter: AdapterInterface<any, any>;
@@ -87,6 +89,13 @@ export class Renderer<T extends Container> implements RendererInterface<T> {
         instance.finalizeBeforeMount();
         return false;
       },
+      commitMount(
+        instance: BaseComponent,
+        type: ReactInstanceType,
+        props: InstanceProps,
+        internalInstanceHandle: ReactReconciler.OpaqueHandle,
+      ) {},
+
       appendChildToContainer: (container, child: BaseComponent) => {
         child.appendAsContainerChildren(container);
       },
@@ -129,6 +138,8 @@ export class Renderer<T extends Container> implements RendererInterface<T> {
         textInstance.props.nodeValue = newText;
       },
       resetTextContent: () => {},
+      detachDeletedInstance(node: BaseComponent) {},
+      removeChildFromContainer(container: Container, child: any) {},
     };
 
     this.reconciler = Reconciler(hostConfig);

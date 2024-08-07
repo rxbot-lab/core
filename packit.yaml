@@ -1,0 +1,7 @@
+input:
+  patterns: ["**/*.ts"]
+  ignores: ["**/node_modules/**"]
+
+output:
+  file: packit.ts
+  comment_symbol: "//"

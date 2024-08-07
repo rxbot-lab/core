@@ -21,6 +21,7 @@ export class MemoryStorage extends Storage {
   }
 
   async restoreState<T>(key: string): Promise<T | undefined> {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     return this.stateMap.get(key);
   }
 

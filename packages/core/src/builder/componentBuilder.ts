@@ -154,7 +154,7 @@ export class ComponentBuilder implements Builder {
     }
 
     if (this.keys.includes(props.key)) {
-      throw new DuplicatedKeyPropsError(instanceType, props.key);
+      // throw new DuplicatedKeyPropsError(instanceType, props.key);
     }
     this.keys.push(props.key);
   }
